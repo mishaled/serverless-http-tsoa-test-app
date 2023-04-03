@@ -1,0 +1,48 @@
+plugins:
+    - serverless-plugin-typescript
+    - serverless-offline
+
+service: node-typescript-serverless
+
+custom:
+    serverlessPluginTypescript:
+        tsConfigFileLocation: "./tsconfig.json"
+    serverless-offline:
+        noPrependStageInUrl: true
+
+provider:
+    name: aws
+    runtime: nodejs14.x
+    stage: dev
+    region: us-east-1
+
+functions:
+    app:
+        handler: src/server.handler
+        events:
+            - http: ANY /
+            - http: "ANY /{proxy+}"
+    get-docs:
+        handler: src/server.handler
+        events:
+            - http:
+                  path: /api-docs/*
+                  method: get
+    get-harta:
+        handler: src/server.handler
+        events:
+            - http:
+                  path: /users/harta
+                  method: get
+    get-barta:
+        handler: src/server.handler
+        events:
+            - http:
+                  path: /users/barta
+                  method: get
+    swagger:
+        handler: src/server.handler
+        events:
+            - http:
+                  path: /swagger/get
+                  method: get

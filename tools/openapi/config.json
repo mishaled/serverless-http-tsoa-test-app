@@ -1,0 +1,8 @@
+{
+    "apiPackage": "cat-service",
+    "useSingleRequestParameter": "true",
+    "withSeparateModelsAndApi": "true",
+    "withInterfaces": "true",
+    "generatorName": "typescript-fetch",
+    "npmName": "some-client"
+}
