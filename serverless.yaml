@@ -30,18 +30,30 @@ functions:
             - http:
                   path: /api-docs/*
                   method: get
-    get-harta:
+    get-one-cat:
         handler: src/server.handler
         events:
             - http:
-                  path: /users/harta
+                  path: /cat/:id
                   method: get
-    get-barta:
+    create-cat:
         handler: src/server.handler
         events:
             - http:
-                  path: /users/barta
-                  method: get
+                  path: /cat
+                  method: post
+    update-cat:
+        handler: src/server.handler
+        events:
+            - http:
+                  path: /cat/:id
+                  method: put
+    remove-cat:
+        handler: src/server.handler
+        events:
+            - http:
+                  path: /cat/remove/:id
+                  method: delete
     swagger:
         handler: src/server.handler
         events:

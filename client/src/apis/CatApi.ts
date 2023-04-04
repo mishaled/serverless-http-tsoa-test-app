@@ -17,27 +17,30 @@ import * as runtime from '../runtime';
 import type {
   Cat,
   CatData,
+  GetOne404Response,
 } from '../models';
 import {
     CatFromJSON,
     CatToJSON,
     CatDataFromJSON,
     CatDataToJSON,
+    GetOne404ResponseFromJSON,
+    GetOne404ResponseToJSON,
 } from '../models';
 
 export interface CreateRequest {
     catData: CatData;
 }
 
-export interface DeleteCatRequest {
+export interface GetOneRequest {
     id: string;
 }
 
-export interface GetCatRequest {
+export interface RemoveRequest {
     id: string;
 }
 
-export interface UpdateCatRequest {
+export interface UpdateRequest {
     id: string;
     catData: CatData;
 }
@@ -84,38 +87,6 @@ export class CatApi extends runtime.BaseAPI {
 
     /**
      */
-    async deleteCatRaw(requestParameters: DeleteCatRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<boolean>> {
-        if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling deleteCat.');
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        const response = await this.request({
-            path: `/cat/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
-            method: 'DELETE',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        if (this.isJsonMime(response.headers.get('content-type'))) {
-            return new runtime.JSONApiResponse<boolean>(response);
-        } else {
-            return new runtime.TextApiResponse(response) as any;
-        }
-    }
-
-    /**
-     */
-    async deleteCat(requestParameters: DeleteCatRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<boolean> {
-        const response = await this.deleteCatRaw(requestParameters, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     */
     async getRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<object>> {
         const queryParameters: any = {};
 
@@ -140,33 +111,9 @@ export class CatApi extends runtime.BaseAPI {
 
     /**
      */
-    async getAllCatsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<Cat>>> {
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        const response = await this.request({
-            path: `/cat`,
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(CatFromJSON));
-    }
-
-    /**
-     */
-    async getAllCats(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<Cat>> {
-        const response = await this.getAllCatsRaw(initOverrides);
-        return await response.value();
-    }
-
-    /**
-     */
-    async getCatRaw(requestParameters: GetCatRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Cat>> {
+    async getOneRaw(requestParameters: GetOneRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Cat>> {
         if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling getCat.');
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling getOne.');
         }
 
         const queryParameters: any = {};
@@ -185,20 +132,47 @@ export class CatApi extends runtime.BaseAPI {
 
     /**
      */
-    async getCat(requestParameters: GetCatRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Cat> {
-        const response = await this.getCatRaw(requestParameters, initOverrides);
+    async getOne(requestParameters: GetOneRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Cat> {
+        const response = await this.getOneRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
     /**
      */
-    async updateCatRaw(requestParameters: UpdateCatRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+    async removeRaw(requestParameters: RemoveRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling updateCat.');
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling remove.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/cat/remove/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     */
+    async remove(requestParameters: RemoveRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.removeRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     */
+    async updateRaw(requestParameters: UpdateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling update.');
         }
 
         if (requestParameters.catData === null || requestParameters.catData === undefined) {
-            throw new runtime.RequiredError('catData','Required parameter requestParameters.catData was null or undefined when calling updateCat.');
+            throw new runtime.RequiredError('catData','Required parameter requestParameters.catData was null or undefined when calling update.');
         }
 
         const queryParameters: any = {};
@@ -220,8 +194,8 @@ export class CatApi extends runtime.BaseAPI {
 
     /**
      */
-    async updateCat(requestParameters: UpdateCatRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.updateCatRaw(requestParameters, initOverrides);
+    async update(requestParameters: UpdateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.updateRaw(requestParameters, initOverrides);
     }
 
 }

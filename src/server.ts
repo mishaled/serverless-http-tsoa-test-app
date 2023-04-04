@@ -6,6 +6,9 @@ import swaggerJson from "./generated/swagger/swagger.json";
 import swaggerUi from "swagger-ui-express";
 import bodyParser from "body-parser";
 import { forwardedPrefixMiddleware } from "./forwardedPrefixMiddleware";
+import { init } from "./services/catService";
+
+init();
 
 export const app = express();
 

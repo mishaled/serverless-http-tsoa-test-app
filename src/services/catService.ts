@@ -1,20 +1,59 @@
 import { v4 as uuid } from "uuid";
 import { Cat, CatData } from "../types";
+import * as redis from "redis";
 
-const cats: { [key: string]: Cat } = {};
+const client = redis.createClient({
+    socket: {
+        host: "redis",
+        port: 6379,
+    },
+});
 
-const read = (id: string) => cats[id];
+export const init = async () => await client.connect();
 
-const create = (catData: CatData) => {
+client.on("error", (err) => {
+    console.log("Error " + err);
+});
+
+const read = async (id: string): Promise<Cat | null> => {
+    const str = await client.get(id);
+
+    console.log("str", str);
+
+    if (!str) {
+        return null;
+    }
+
+    return JSON.parse(str);
+};
+
+const create = async (catData: CatData) => {
     const id = uuid();
-    cats[id] = { ...catData, id };
+
+    await client.set(
+        id,
+        JSON.stringify({
+            id,
+            ...catData,
+        })
+    );
+
     return id;
 };
 
-const readAll = (): Cat[] => Object.values(cats);
-const update = (id: string, newCat: CatData) => {
-    cats[id] = { id, ...newCat };
+const update = async (id: string, newCat: CatData): Promise<void> => {
+    await client.set(
+        id,
+        JSON.stringify({
+            id,
+            ...newCat,
+        })
+    );
 };
-const remove = (id: string) => delete cats[id];
 
-export default { create, read, readAll, update, remove };
+const remove = async (id: string): Promise<void> => {
+    const result = await client.del(id);
+    console.log("result", result);
+};
+
+export default { create, read, update, remove };

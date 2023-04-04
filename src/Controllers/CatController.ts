@@ -5,29 +5,24 @@ import {
     Get,
     Route,
     Tags,
-    Path,
     Post,
     Body,
     Put,
     Delete,
     Res,
     TsoaResponse,
+    Path,
 } from "tsoa";
 
 @Route("cat")
 @Tags("Cat")
 export class CatController extends Controller {
-    @Get("/")
-    public async getAllCats(): Promise<Cat[]> {
-        return catService.readAll();
-    }
-
-    @Get("/:id")
-    public async getCat(
+    @Get("/{id}")
+    public async getOne(
         @Path() id: string,
         @Res() notFoundResponse: TsoaResponse<404, { reason: string }>
     ): Promise<Cat | null> {
-        const cat = catService.read(id) ?? null;
+        const cat = await catService.read(id);
         if (!cat) {
             return notFoundResponse(404, {
                 reason: "No cat stored",
@@ -42,16 +37,17 @@ export class CatController extends Controller {
         return catService.create(catData);
     }
 
-    @Put("/:id")
-    public async updateCat(
+    @Put("/{id}")
+    public async update(
         @Path() id: string,
         @Body() cat: CatData
     ): Promise<void> {
         return catService.update(id, cat);
     }
 
-    @Delete("/:id")
-    public async deleteCat(@Path() id: string): Promise<boolean> {
-        return catService.remove(id);
+    @Delete("/remove/{id}")
+    public async remove(@Path() id: string): Promise<void> {
+        await catService.remove(id);
+        console.log(`remove ${id}`);
     }
 }

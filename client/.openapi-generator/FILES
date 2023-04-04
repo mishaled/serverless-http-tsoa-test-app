@@ -8,6 +8,7 @@ src/apis/index.ts
 src/index.ts
 src/models/Cat.ts
 src/models/CatData.ts
+src/models/GetOne404Response.ts
 src/models/index.ts
 src/runtime.ts
 tsconfig.json
