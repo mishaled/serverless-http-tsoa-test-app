@@ -17,7 +17,7 @@ describe("Client", () => {
             await catApi.getCat({ id: uuid() });
         } catch (err: any) {
             console.log(err);
-            expect(err?.response?.status).to.be.equal("404");
+            expect(err?.response?.status).to.be.equal(404);
         }
     });
 });
