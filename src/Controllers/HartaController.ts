@@ -1,13 +1,13 @@
-import { Controller, Get, Route, SuccessResponse } from "tsoa";
+import { Controller, Get, Query, Route, SuccessResponse } from "tsoa";
 
 @Route("users")
 export class HartaController extends Controller {
     @Get("/harta")
-    public async getHarta(): // @Path() userId: number,
-    // @Query() name?: string
-    Promise<string> {
-        return "harta";
-        // return new UsersService().get(userId, name);
+    public async getHarta(
+        @Query() name1: string,
+        @Query() name2: string
+    ): Promise<string> {
+        return "harta" + name1 + name2;
     }
 
     @SuccessResponse("201", "Created") // Custom success response

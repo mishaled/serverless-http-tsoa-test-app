@@ -1,0 +1,24 @@
+version: "2"
+
+services:
+    api:
+        build:
+            context: ..
+            dockerfile: Dockerfile
+        ports:
+            - "3000:3000"
+        expose:
+            - 3000
+
+    test-runner:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        depends_on:
+            - api
+        environment:
+            - WAIT_HOSTS=api:3000
+        # volumes:
+        #     - type: bind
+        #       source: $PWD/../client
+        #       target: /some-client

@@ -9,6 +9,8 @@ custom:
         tsConfigFileLocation: "./tsconfig.json"
     serverless-offline:
         noPrependStageInUrl: true
+        httpPort: 3000
+        host: 0.0.0.0
 
 provider:
     name: aws

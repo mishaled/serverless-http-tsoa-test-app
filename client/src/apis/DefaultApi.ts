@@ -15,55 +15,15 @@
 
 import * as runtime from '../runtime';
 
-/**
- * DefaultApi - interface
- * 
- * @export
- * @interface DefaultApiInterface
- */
-export interface DefaultApiInterface {
-    /**
-     * 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof DefaultApiInterface
-     */
-    getRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<object>>;
-
-    /**
-     */
-    get(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<object>;
-
-    /**
-     * 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof DefaultApiInterface
-     */
-    getBartaRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<string>>;
-
-    /**
-     */
-    getBarta(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<string>;
-
-    /**
-     * 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof DefaultApiInterface
-     */
-    getHartaRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<string>>;
-
-    /**
-     */
-    getHarta(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<string>;
-
+export interface GetHartaRequest {
+    name1: string;
+    name2: string;
 }
 
 /**
  * 
  */
-export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
+export class DefaultApi extends runtime.BaseAPI {
 
     /**
      */
@@ -119,8 +79,24 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
 
     /**
      */
-    async getHartaRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<string>> {
+    async getHartaRaw(requestParameters: GetHartaRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<string>> {
+        if (requestParameters.name1 === null || requestParameters.name1 === undefined) {
+            throw new runtime.RequiredError('name1','Required parameter requestParameters.name1 was null or undefined when calling getHarta.');
+        }
+
+        if (requestParameters.name2 === null || requestParameters.name2 === undefined) {
+            throw new runtime.RequiredError('name2','Required parameter requestParameters.name2 was null or undefined when calling getHarta.');
+        }
+
         const queryParameters: any = {};
+
+        if (requestParameters.name1 !== undefined) {
+            queryParameters['name1'] = requestParameters.name1;
+        }
+
+        if (requestParameters.name2 !== undefined) {
+            queryParameters['name2'] = requestParameters.name2;
+        }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
@@ -140,8 +116,8 @@ export class DefaultApi extends runtime.BaseAPI implements DefaultApiInterface {
 
     /**
      */
-    async getHarta(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<string> {
-        const response = await this.getHartaRaw(initOverrides);
+    async getHarta(requestParameters: GetHartaRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<string> {
+        const response = await this.getHartaRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

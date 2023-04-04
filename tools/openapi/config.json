@@ -1,8 +1,6 @@
 {
-    "apiPackage": "cat-service",
-    "useSingleRequestParameter": "true",
-    "withSeparateModelsAndApi": "true",
-    "withInterfaces": "true",
-    "generatorName": "typescript-fetch",
-    "npmName": "some-client"
+    "npmName": "@swagger/typescript-fetch-some-client",
+    "npmVersion": "1.0.0",
+    "npmRepository": "https://npmjs.com/mishaled/severless-http-tsoa-test-app",
+    "useSingleRequestParameter": true
 }
