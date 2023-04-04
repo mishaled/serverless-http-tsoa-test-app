@@ -45,9 +45,8 @@ export class CatController extends Controller {
         return catService.update(id, cat);
     }
 
-    @Delete("/remove/{id}")
+    @Delete("/{id}")
     public async remove(@Path() id: string): Promise<void> {
-        await catService.remove(id);
-        console.log(`remove ${id}`);
+        return catService.remove(id);
     }
 }

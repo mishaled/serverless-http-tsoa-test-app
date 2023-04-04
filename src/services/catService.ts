@@ -52,8 +52,7 @@ const update = async (id: string, newCat: CatData): Promise<void> => {
 };
 
 const remove = async (id: string): Promise<void> => {
-    const result = await client.del(id);
-    console.log("result", result);
+    await client.del(id);
 };
 
 export default { create, read, update, remove };

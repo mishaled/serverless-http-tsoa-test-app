@@ -19,11 +19,6 @@ provider:
     region: us-east-1
 
 functions:
-    app:
-        handler: src/server.handler
-        events:
-            - http: ANY /
-            - http: "ANY /{proxy+}"
     get-docs:
         handler: src/server.handler
         events:
@@ -34,7 +29,7 @@ functions:
         handler: src/server.handler
         events:
             - http:
-                  path: /cat/:id
+                  path: /cat/{id}
                   method: get
     create-cat:
         handler: src/server.handler
@@ -46,14 +41,21 @@ functions:
         handler: src/server.handler
         events:
             - http:
-                  path: /cat/:id
+                  path: /cat/{id}
                   method: put
     remove-cat:
         handler: src/server.handler
         events:
             - http:
-                  path: /cat/remove/:id
+                  path: /cat/remove/{id}
                   method: delete
+
+    # app:
+    #     handler: src/server.handler
+    #     events:
+    #         # - http: ANY /
+    #         - http: "ANY /{proxy+}"
+
     swagger:
         handler: src/server.handler
         events:

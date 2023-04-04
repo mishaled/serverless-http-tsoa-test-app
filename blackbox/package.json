@@ -6,7 +6,7 @@
     "scripts": {
         "test:coverage": "jest --coverage",
         "test:blackbox:run": "TS_NODE_FILES=true mocha",
-        "test:blackbox:local": "rm -rf ./some-client && cp -r ../client ./client && docker-compose up test-runner --build --exit-code-from test-runner",
+        "test:blackbox:local": "cd ../ && npm run prepare-for-running && cd ./blackbox && rm -rf ./some-client && cp -r ../client ./client && docker-compose up test-runner --build --exit-code-from test-runner",
         "test:handler": "docker-compose up test-runner --build --exit-code-from test-runner",
         "build": "tsc --noEmit --project tsconfig.json"
     },

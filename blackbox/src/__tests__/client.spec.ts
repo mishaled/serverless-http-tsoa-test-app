@@ -77,7 +77,7 @@ describe("Client", () => {
         });
     });
 
-    it.only("Delete cat - cat should not exist", async () => {
+    it("Delete cat - cat should not exist", async () => {
         const catData = {
             age: 4,
             breed: uuid(),
@@ -86,17 +86,10 @@ describe("Client", () => {
 
         const catId = await catApi.create({ catData });
 
-        try {
-            await catApi.remove({ id: catId });
-        } catch (err) {
-            console.log(err);
-        }
-
-        console.log("removed");
+        await catApi.remove({ id: catId });
 
         try {
             await catApi.getOne({ id: catId });
-            console.log("got");
         } catch (err: any) {
             expect(err?.response?.status).to.be.equal(404);
             return;
