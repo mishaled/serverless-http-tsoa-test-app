@@ -36,7 +36,8 @@
         "sinon": "^15.0.3",
         "swagger-ui-express": "^4.6.2",
         "ts-node": "^10.9.1",
-        "tsoa": "^5.1.1"
+        "tsoa": "^5.1.1",
+        "@swagger/typescript-fetch-some-client": "file:./some-client"
     },
     "devDependencies": {
         "serverless-plugin-typescript": "^2.1.4",

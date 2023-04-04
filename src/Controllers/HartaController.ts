@@ -4,8 +4,8 @@ import { Controller, Get, Query, Route, SuccessResponse } from "tsoa";
 export class HartaController extends Controller {
     @Get("/harta")
     public async getHarta(
-        @Query() name1: string,
-        @Query() name2: string
+        @Query() name1?: string,
+        @Query() name2?: string
     ): Promise<string> {
         return "harta" + name1 + name2;
     }

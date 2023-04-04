@@ -8,7 +8,7 @@
         "dev:server": "npm run build && cross-env NODE_ENV=development sls offline start --stage offline",
         "build:tsoa": "rm -rf spec-and-routes && rm -rf dist && rm -rf .build && rm -rf tsoa &&  mkdir -p ./src/generated && mkdir -p ./src/generated/routes && mkdir -p ./src/generated/swagger && tsoa spec-and-routes",
         "build": "npm run build:tsoa && tsc",
-        "build:clients": "rm -rf ./client &&  cd ./tools/openapi && openapi-generator-cli generate  -g typescript-fetch -i ../../src/generated/swagger/swagger.json -c ./config.json -o ../../client",
+        "build:clients": "rm -rf ./client &&  cd ./tools/openapi && openapi-generator-cli generate  -g typescript-fetch -i ../../src/generated/swagger/swagger.json -c ./config.json -o ../../client && cd ../../client && npm run build",
         "start": "node build/src/server.js"
     },
     "author": "",

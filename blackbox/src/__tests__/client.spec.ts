@@ -1,7 +1,10 @@
 import "mocha";
 import { expect } from "chai";
 import nodeFetch from "node-fetch";
-import { Configuration, DefaultApi } from "../../some-client/dist";
+import {
+    DefaultApi,
+    Configuration,
+} from "@swagger/typescript-fetch-some-client";
 
 describe("Client", () => {
     it("Should not fail", async () => {
@@ -13,7 +16,10 @@ describe("Client", () => {
         );
 
         try {
-            const harta = await api.getHarta();
+            const harta = await api.getHarta({
+                name1: "name1",
+                name2: "name2",
+            });
             expect(harta).to.exist;
         } catch (err) {
             console.log(err);
