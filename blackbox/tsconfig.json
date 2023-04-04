@@ -30,10 +30,7 @@
         "skipLibCheck": true,
         "forceConsistentCasingInFileNames": true,
         "experimentalDecorators": true,
-        "baseUrl": ".",
-        "paths": {
-            "@/*": ["./src/*"]
-        }
+        "baseUrl": "."
     },
     "include": ["./src/**/*", "./some-client/**/*"],
     "exclude": ["./dist/**/*", "./node_modules/**/*"]

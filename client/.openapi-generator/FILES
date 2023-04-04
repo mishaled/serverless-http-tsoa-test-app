@@ -3,8 +3,11 @@
 .openapi-generator-ignore
 README.md
 package.json
-src/apis/DefaultApi.ts
+src/apis/CatApi.ts
 src/apis/index.ts
 src/index.ts
+src/models/Cat.ts
+src/models/CatData.ts
+src/models/index.ts
 src/runtime.ts
 tsconfig.json

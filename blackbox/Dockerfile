@@ -1,4 +1,7 @@
 FROM node:14-alpine
+
+COPY client ./client
+
 WORKDIR /runner
 
 COPY . .

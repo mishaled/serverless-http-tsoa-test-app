@@ -18,6 +18,7 @@ services:
             - api
         environment:
             - WAIT_HOSTS=api:3000
+            - WAIT_TIMEOUT=60
         # volumes:
         #     - type: bind
         #       source: $PWD/../client

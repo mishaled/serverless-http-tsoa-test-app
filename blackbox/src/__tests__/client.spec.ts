@@ -1,14 +1,12 @@
 import "mocha";
+import { v4 as uuid } from "uuid";
 import { expect } from "chai";
 import nodeFetch from "node-fetch";
-import {
-    DefaultApi,
-    Configuration,
-} from "@swagger/typescript-fetch-some-client";
+import { CatApi, Configuration } from "@swagger/typescript-fetch-some-client";
 
 describe("Client", () => {
     it("Should not fail", async () => {
-        const api = new DefaultApi(
+        const catApi = new CatApi(
             new Configuration({
                 basePath: "http://api:3000",
                 fetchApi: nodeFetch,
@@ -16,13 +14,10 @@ describe("Client", () => {
         );
 
         try {
-            const harta = await api.getHarta({
-                name1: "name1",
-                name2: "name2",
-            });
-            expect(harta).to.exist;
-        } catch (err) {
+            await catApi.getCat({ id: uuid() });
+        } catch (err: any) {
             console.log(err);
+            expect(err?.response?.status).to.be.equal("404");
         }
     });
 });
