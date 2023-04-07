@@ -47,7 +47,7 @@ functions:
         handler: src/server.handler
         events:
             - http:
-                  path: /cat/remove/{id}
+                  path: /cat/{id}
                   method: delete
 
     # app:

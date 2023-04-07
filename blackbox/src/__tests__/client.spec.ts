@@ -83,7 +83,6 @@ describe("Client", () => {
             breed: uuid(),
             name: uuid(),
         };
-
         const catId = await catApi.create({ catData });
 
         await catApi.remove({ id: catId });

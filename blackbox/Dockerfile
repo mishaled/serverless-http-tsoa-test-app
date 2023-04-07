@@ -4,7 +4,8 @@ COPY client ./client
 
 WORKDIR /runner
 
-COPY . .
+COPY src ./src
+COPY package.json package-lock.json tsconfig.json .mocharc.js ./
 
 RUN npm i
 
