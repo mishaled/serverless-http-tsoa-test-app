@@ -6,10 +6,9 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "dev:server": "npm run build:tsoa && cross-env NODE_ENV=development sls offline start --stage offline",
-        "prepare-for-running": "npm run build:tsoa && npm run build:clients",
+        "build": "npm run build:tsoa && npm run build:clients",
         "build:tsoa": "rm -rf spec-and-routes && rm -rf dist && rm -rf .build && rm -rf tsoa &&  mkdir -p ./src/generated && mkdir -p ./src/generated/routes && mkdir -p ./src/generated/swagger && tsoa spec-and-routes",
-        "build": "npm run build:tsoa && tsc",
-        "build:clients": "rm -rf ./clients &&  cd ./tools/openapi && openapi-generator-cli generate  -g typescript-fetch -i ../../src/generated/swagger/swagger.json -c ./config.json -o ../../clients && cd ../../clients",
+        "build:clients": "rm -rf ./clients &&  cd ./tools/openapi && openapi-generator-cli generate  -g typescript-fetch -i ../../src/generated/swagger/swagger.json -c ./config.json -o ../../clients && cd ../../clients && npm run build",
         "start": "node build/src/server.js"
     },
     "author": "",

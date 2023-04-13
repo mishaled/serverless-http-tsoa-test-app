@@ -6,14 +6,14 @@
     "scripts": {
         "test:coverage": "jest --coverage",
         "test:blackbox:run": "TS_NODE_FILES=true mocha",
-        "test:blackbox:local": "cd ../ && npm run prepare-for-running && cd ./blackbox && rm -rf ./some-client && cp -r ../clients ./client && docker-compose up test-runner --build --exit-code-from test-runner",
+        "test:blackbox:local": "cd ../ && npm run build && cd ./blackbox && rm -rf ./clients && cp -r ../clients ./clients && docker-compose up test-runner --build --exit-code-from test-runner",
         "test:handler": "docker-compose up test-runner --build --exit-code-from test-runner",
         "build": "tsc --noEmit --project tsconfig.json"
     },
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "@swagger/typescript-fetch-some-client": "file:../client",
+        "@swagger/typescript-fetch-some-client": "file:../clients",
         "@types/chai": "^4.3.4",
         "@types/express": "^4.17.17",
         "@types/mocha": "^10.0.1",
