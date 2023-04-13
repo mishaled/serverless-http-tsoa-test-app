@@ -27,5 +27,5 @@ services:
             - WAIT_TIMEOUT=60
         # volumes:
         #     - type: bind
-        #       source: $PWD/../client
+        #       source: $PWD/../clients
         #       target: /some-client
