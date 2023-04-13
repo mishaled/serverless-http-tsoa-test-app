@@ -1,5 +1,5 @@
 {
-    "name": "serverless-http-test-app",
+    "name": "serverless-http-tsoa-test-app",
     "version": "1.0.0",
     "description": "",
     "main": "index.js",
