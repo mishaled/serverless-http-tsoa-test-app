@@ -96,4 +96,17 @@ describe("Client", () => {
 
         expect.fail("Should return 404");
     });
+
+    xit("GetAllIds - cat should not exist", async () => {
+        const catData = {
+            age: 4,
+            breed: uuid(),
+            name: uuid(),
+        };
+        const catId = await catApi.create({ catData });
+
+        const keys = await catApi.getIdsKeys({ id: catId });
+
+        expect(keys).to.be.include(catId);
+    });
 });

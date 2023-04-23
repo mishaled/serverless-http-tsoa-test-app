@@ -55,4 +55,9 @@ const remove = async (id: string): Promise<void> => {
     await client.del(id);
 };
 
-export default { create, read, update, remove };
+const getAllIds = async (): Promise<string[]> => {
+    const ids = await client.keys("*");
+    return ids;
+};
+
+export default { create, read, update, remove, getAllIds };
