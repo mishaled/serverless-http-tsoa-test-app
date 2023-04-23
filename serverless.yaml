@@ -50,12 +50,6 @@ functions:
                   path: /cat/{id}
                   method: delete
 
-    # app:
-    #     handler: src/server.handler
-    #     events:
-    #         # - http: ANY /
-    #         - http: "ANY /{proxy+}"
-
     swagger:
         handler: src/server.handler
         events:
